@@ -2,8 +2,8 @@
 node {
      checkout scm
      stage('build-image') {
-          sh 'docker bulid -t centos-py-nginx .'
-          sh 'docker run -p 5579:80 --name centos-mine -d centos-py-nginx sleep 1d' 
+          sh 'docker bulid --tag centos-py-nginx:v1 .'
+          sh 'docker run -p 5579:80 --name centos-mine -d centos-py-nginx:v1 sleep 1d' 
     }
     stage('test-container') {
          sh 'curl http://100.98.101.43:5579'
