@@ -2,7 +2,7 @@
 node {
      checkout scm
      stage('build-image') {
-          sh 'docker bulid --tag centos-py-nginx:v1 .'
+          sh '//var/lib/jenkins/workspace/jenkis-docker/DB.sh'
           sh 'docker run -p 5579:80 --name centos-mine -d centos-py-nginx:v1 sleep 1d' 
     }
     stage('test-container') {
