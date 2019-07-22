@@ -1,32 +1,15 @@
-stage('Build') {
-    node {
-        checkout scm
-        sh 'make'
-        stash includes: '**/target/*.jar', name: 'app' 
+#!/usr/bin/env groovy
+node {
+     checkout scm
+     stage('build-image') {
+          sh 'docker bulid -t centos-py-nginx .'
+          sh 'docker run -p 5579:80 --name centos-mine -d centos-py-nginx sleep 1d' 
     }
-}
-
-stage('Test') {
-   parallel linux: {
-        node('linux') { 
-            checkout scm
-            try {
-                 unstash 'app' 
-                 sh 'make check'
-            }
-            finally {
-                 junit '**/target/*.xml'
-            }  
-         }
-   }, 
-    node('windows') {
-        checkout scm
-        try {
-            unstash 'app'
-            bat 'make check' 
-        }
-        finally {
-            junit '**/target/*.xml'
-        }
+    stage('test-container') {
+         sh 'curl http://100.98.101.43:5579'
+         sh 'python --version'
+    }
+    stage('deploy') {
+    echo "I would like to deploy the container to client node, but I don't know how to do it!"
     }
 }
