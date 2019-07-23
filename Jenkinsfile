@@ -5,7 +5,7 @@ node {
           sh '/var/lib/jenkins/workspace/jenkis-docker/DB.sh'
     }
     stage('test-container') {
-         sh 'curl http://100.98.101.43:5579'
+         sh 'curl http://100.98.101.43:7744'
          sh 'python --version'
     }
     stage('deploy') {
