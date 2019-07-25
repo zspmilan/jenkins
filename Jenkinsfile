@@ -6,11 +6,10 @@ node {
 }
 stage 'build'
 dockerfile {
-    additionalBuildArgs '--name jendfmd'
-}
-stage 'test'
-sh """
-   hostname >/tmp/hostnamefile
-   hanme=readFile '/tmp/hostnamefile'
-   echo "I am in the container ${hname} now!"
+     additionalBuildArgs '--name jendfmd'
+     sh """
+     hostname >/tmp/hostnamefile
+     hanme=readFile '/tmp/hostnamefile'
+     echo "I am in the container ${hname} now!"
 """
+}
