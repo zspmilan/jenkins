@@ -15,7 +15,7 @@ pipeline {
       steps {
       sh 'hostname >/tmp/hostnamefile'
       sh 'cat /tmp/hostnamefile'
-         hname = readFile '/tmp/hostnamefile'
+      sh 'hname=$(cat /tmp/hostnamefile)'
       sh 'echo "I am in ${hname}!"'
       }
     }
