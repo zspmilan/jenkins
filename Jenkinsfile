@@ -8,13 +8,14 @@ pipeline {
   stages {
     stage ('who') {
       steps {
-         echo "hope no issue!"
+        sh 'hostname'
       }
   }
     stage('run') { 
       steps {
       sh """
          hostname >/tmp/hostnamefile
+         cat /tmp/hostnamefile
        """
       }
     }
