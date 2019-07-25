@@ -7,7 +7,13 @@ pipeline {
     }
   }
   stages {
-    stage('build') {
+    stage('run') {
+      agent {
+        docker {
+          image 'jkdfmd'
+          args '--name democon'
+        } 
+    }
       steps {
       sh """
          hostname >/tmp/hostnamefile
