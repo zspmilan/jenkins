@@ -1,19 +1,15 @@
 #!/usr/bin/env groovy
+
 pipeline {
-    agent {
-        docker {
-            image 'centos'
-            args '--name jenmd'
-        }
+  agent {
+    dockerfile {
+       additionalBuildArgs '--name jkdfmd'
     }
-    stages {
-        stage('test') {
-            steps {
-            sh """
-               echo "I in the container now!"  
-               hostname
-            """
-            }
-        }
+  }
+  stages {
+    stage('build') {
+      steps {
+      echo "where am I?"
+      }
     }
 }
