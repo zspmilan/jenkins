@@ -13,12 +13,10 @@ pipeline {
   }
     stage('run') { 
       steps {
-      sh """
-         hostname >/tmp/hostnamefile
-         cat /tmp/hostnamefile
+      sh 'hostname >/tmp/hostnamefile'
+      sh 'cat /tmp/hostnamefile'
          hname = readFile '/tmp/hostnamefile'
-         echo "I am in ${hname}"
-       """
+      sh 'echo "I am in ${hname}!"'
       }
     }
   }
