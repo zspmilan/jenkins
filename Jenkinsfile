@@ -3,17 +3,15 @@
 pipeline {
   agent {
     dockerfile {
-       additionalBuildArgs '-t jkdfmd'
     }
   }
   stages {
-    stage('run') {
-      agent {
-        docker {
-          image 'jkdfmd'
-          args '--name democon'
-        } 
-    }
+    stage ('who') {
+      steps {
+         echo "hope no issue!"
+      }
+  }
+    stage('run') { 
       steps {
       sh """
          hostname >/tmp/hostnamefile
