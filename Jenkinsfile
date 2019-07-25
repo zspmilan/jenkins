@@ -16,6 +16,8 @@ pipeline {
       sh """
          hostname >/tmp/hostnamefile
          cat /tmp/hostnamefile
+         hname = readFile '/tmp/hostnamefile'
+         echo "I am in ${hname}"
        """
       }
     }
