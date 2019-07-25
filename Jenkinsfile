@@ -3,7 +3,7 @@
 pipeline {
   agent {
     dockerfile {
-       additionalBuildArgs '--name jkdfmd'
+       additionalBuildArgs '-t jkdfmd'
     }
   }
   stages {
