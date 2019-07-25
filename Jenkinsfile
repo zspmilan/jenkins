@@ -17,6 +17,8 @@ pipeline {
       sh 'cat /tmp/hostnamefile'
       sh 'hname=$(cat /tmp/hostnamefile)'
       sh 'echo "I am in ${hname}!"'
+      sh 'exit'
+      sh 'hostname'
       }
     }
   }
