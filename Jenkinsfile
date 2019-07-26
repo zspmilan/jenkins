@@ -13,12 +13,7 @@ pipeline {
   }
     stage('run') { 
       steps {
-      sh 'hostname >/tmp/hostnamefile'
-      sh 'cat /tmp/hostnamefile'
-      sh 'hname=$(cat /tmp/hostnamefile)'
-      sh 'echo "I am in ${hname}!"'
-      sh 'exit'
-      sh 'hostname'
+      sh 'echo "I am in $(hostname)!"'
       }
     }
   }
