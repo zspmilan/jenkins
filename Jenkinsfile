@@ -1,13 +1,19 @@
 #!/usr/bin/env groovy
 
 pipeline {
-  agent {
-    dockerfile {
-         additionalBuildArgs '-t jksmd'
-         reuseNode true
-    }
-  }
+  agent none 
   stages {
+    stage('run') { 
+       agent {
+           dockerfile {
+                 additionalBuildArgs '-t jksmd'
+                 reuseNode true
+           }
+       }
+       steps {
+           sh 'echo "I am in $(hostname)!"'
+      }
+    }
     stage ('who') {
       agent {
         docker {
@@ -18,11 +24,6 @@ pipeline {
       }
       steps {
         sh 'hostname'
-      }
-  }
-    stage('run') { 
-      steps {
-      sh 'echo "I am in $(hostname)!"'
       }
     }
   }
