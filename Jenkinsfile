@@ -13,6 +13,8 @@ pipeline {
         docker {
            image 'jkmd'
            args '--name jenkmd'
+        }
+      }
       steps {
         sh 'hostname'
       }
