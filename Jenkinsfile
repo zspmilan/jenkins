@@ -17,7 +17,7 @@ pipeline {
     stage ('who') {
       agent {
         docker {
-           image 'jkmd'
+           image 'jksmd'
            args '--name jenkmd'
            reuseNode true
         }
