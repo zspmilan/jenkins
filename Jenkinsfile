@@ -3,10 +3,16 @@
 pipeline {
   agent {
     dockerfile {
+         additionalBuildArgs '-t jksmd'
+         reuseNode true
     }
   }
   stages {
     stage ('who') {
+      agent {
+        docker {
+           image 'jkmd'
+           args '--name jenkmd'
       steps {
         sh 'hostname'
       }
