@@ -7,6 +7,7 @@ pipeline {
        agent {
            dockerfile {
                  additionalBuildArgs '-t jksmd'
+                 reuseNode true
            }
        }
        steps {
@@ -18,7 +19,6 @@ pipeline {
         docker {
            image 'jksmd'
            args '--name jenkmd'
-           reuseNode true
         }
       }
       steps {
