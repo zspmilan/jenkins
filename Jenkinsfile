@@ -13,6 +13,7 @@ pipeline {
         docker {
            image 'jkmd'
            args '--name jenkmd'
+           reuseNode true
         }
       }
       steps {
