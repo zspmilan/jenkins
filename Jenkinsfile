@@ -14,6 +14,9 @@ pipeline {
            sh 'echo "I am in $(hostname)!"'
       }
     }
+  options {
+       skipDefaultCheckout()
+  }
     stage ('who') {
       agent {
         docker {
