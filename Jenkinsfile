@@ -10,8 +10,8 @@ pipeline {
         customWorkspace '/tmp/jksdemo'
       }
     }
-    checkout scm
       steps {
+        checkout scm
         sh 'docker build -t centos-jkmd:v1.0 .'
         sh 'docker push centos-jkmd:v1.0'
       }
