@@ -2,9 +2,6 @@
 
 pipeline {
   agent none 
-  options {
-       skipDefaultCheckout()
-  }
   stages {
     stage('run') { 
        agent {
