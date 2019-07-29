@@ -11,10 +11,10 @@ pipeline {
            }
        }
        steps {
-         step {
+         step('show') {
            sh 'echo "I am in $(hostname)!"'
          }
-         step {
+         step('push_image') {
            sh 'docker push jksmd:v1.0'
          }
       }
@@ -22,7 +22,7 @@ pipeline {
     stage ('who') {
       agent {
         docker {
-           image 'jksmd'
+           image 'jksmd:v1.0'
            args '--name jenkmd'
         }
       }
