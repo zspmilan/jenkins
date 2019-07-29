@@ -26,7 +26,7 @@ pipeline {
     stage('test') {
       agent { label 'client' }
       steps {
-        curl http://127.0.0.1:8809 
+        sh 'curl http://127.0.0.1:8809'
       }
     }
   }
