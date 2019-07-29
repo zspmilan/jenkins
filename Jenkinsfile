@@ -15,6 +15,11 @@ pipeline {
       }
     }
     stage('push') {
+      agent { 
+        node {
+          label 'master'
+        }
+      }
       options { retry (3) }
       steps {
         sh 'docker push docker.io/zspmilan/centos-jkmd:v1.0'
