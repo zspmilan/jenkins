@@ -2,6 +2,9 @@
 
 pipeline {
   agent none 
+  options {
+       skipDefaultCheckout()
+  }
   stages {
     stage('run') { 
        agent {
@@ -14,9 +17,6 @@ pipeline {
            sh 'echo "I am in $(hostname)!"'
       }
     }
-  options {
-       skipDefaultCheckout()
-  }
     stage ('who') {
       agent {
         docker {
