@@ -5,9 +5,11 @@ pipeline {
   checkout scm
   stages {
     stage('build'){
-    agent node { 
-      label 'master'
-      customWorkspace '/tmp/jksdemo'
+    agent { 
+      node { 
+        label 'master'
+        customWorkspace '/tmp/jksdemo'
+      }
     }
       steps {
         sh 'docker build -t centos-jkmd:v1.0 .'
@@ -15,16 +17,18 @@ pipeline {
       }
     }
     stage('run') {
-      agent node {
-        label 'client'
-        customWorkspace '/tmp/jksdemo'
+      agent { 
+        node {
+          label 'client'
+          customWorkspace '/tmp/jksdemo'
+        }
       }
       steps {
         sh 'docker run -d -p 8809:80 --name centos-jksmd centos-jkmd:v1.0 /usr/sbin/init'
       }
     }
     stage('test') {
-      agent { label 'client' }
+      agent { node { label 'client' } }
       steps {
         sh 'curl http://127.0.0.1:8809'
       }
