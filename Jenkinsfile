@@ -4,13 +4,13 @@ pipeline {
   agent none
   stages {
     stage('build'){
-    checkout scm
     agent { 
       node { 
         label 'master'
         customWorkspace '/tmp/jksdemo'
       }
     }
+    checkout scm
       steps {
         sh 'docker build -t centos-jkmd:v1.0 .'
         sh 'docker push centos-jkmd:v1.0'
