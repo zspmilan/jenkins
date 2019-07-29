@@ -3,8 +3,8 @@
 pipeline {
   agent none
   stages {
-  checkout scm
     stage('build'){
+    checkout scm
     agent { 
       node { 
         label 'master'
