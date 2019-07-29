@@ -6,12 +6,17 @@ pipeline {
     stage('run') { 
        agent {
            dockerfile {
-                 additionalBuildArgs '-t jksmd'
+                 additionalBuildArgs '-t jksmd:v1.0'
                  reuseNode true
            }
        }
        steps {
+         step {
            sh 'echo "I am in $(hostname)!"'
+         }
+         step {
+           sh 'docker push jksmd:v1.0'
+         }
       }
     }
     stage ('who') {
