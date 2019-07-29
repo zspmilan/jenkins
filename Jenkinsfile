@@ -13,7 +13,6 @@ pipeline {
        steps {
            sh 'echo "I am in $(hostname)!"'
            sh 'docker push jksmd:v1.0'
-         }
       }
     }
     stage ('who') {
