@@ -15,7 +15,7 @@ pipeline {
       }
     }
     stage('push') {
-      options { retry {3} }
+      options { retry (3) }
       steps {
         sh 'docker push docker.io/zspmilan/centos-jkmd:v1.0'
       }
