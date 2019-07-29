@@ -11,10 +11,7 @@ pipeline {
            }
        }
        steps {
-         step('show') {
            sh 'echo "I am in $(hostname)!"'
-         }
-         step('push_image') {
            sh 'docker push jksmd:v1.0'
          }
       }
