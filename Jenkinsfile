@@ -11,8 +11,7 @@ pipeline {
       }
     }
       steps {
-        sh 'docker build -t centos-jkmd .'
-        sh 'docker tag docker.io/zspmilan/centos-jkmd:v1.0'
+        sh 'docker build -t docker.io/zspmilan/centos-jkmd:v1.0 .'
         sh 'docker push docker.io/zspmilan/centos-jkmd:v1.0'
       }
     }
