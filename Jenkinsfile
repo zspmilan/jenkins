@@ -1,30 +1,38 @@
 #!/usr/bin/env groovy
 
 pipeline {
-  agent none 
+  agent none
+  checkout scm
   stages {
-    stage('run') { 
-       agent {
-           dockerfile {
-                 additionalBuildArgs '-t jksmd:v1.0'
-                 reuseNode true
-           }
-       }
-       steps {
-           sh 'echo "I am in $(hostname)!"'
-           sh 'docker push jksmd:v1.0'
+    stage('build'){
+    agent node { 
+      label 'master'
+      customWorkspace '/tmp/jksdemo'
+    }
+      steps {
+        sh 'docker build -t centos-jkmd:v1.0 .'
+        sh 'docker push centos-jkmd:v1.0'
       }
     }
-    stage ('who') {
-      agent {
-        docker {
-           image 'jksmd:v1.0'
-           args '--name jenkmd'
-        }
+    stage('run') {
+      agent node {
+        label 'client'
+        customWorkspace '/tmp/jksdemo'
       }
       steps {
-        sh 'hostname'
+        sh 'docker run -d -p 8809:80 --name centos-jksmd centos-jkmd:v1.0 /usr/sbin/init'
       }
+    }
+    stage('test') {
+      agent { label 'client' }
+      steps {
+        curl http://127.0.0.1:8809 
+      }
+    }
+  }
+  post {
+    success {
+      echo 'Everything is fine!'
     }
   }
 }
