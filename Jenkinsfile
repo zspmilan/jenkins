@@ -2,8 +2,8 @@
 
 pipeline {
   agent none
-  checkout scm
   stages {
+  checkout scm
     stage('build'){
     agent { 
       node { 
