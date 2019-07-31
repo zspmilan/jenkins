@@ -20,7 +20,10 @@ pipeline {
           label 'master'
         }
       }
-      options { retry (3) }
+      options { 
+        retry (3) 
+        skipDefaultCheckout()
+      }
       steps {
         sh 'docker push docker.io/zspmilan/centos-jkmd:v1.0'
       }
@@ -32,13 +35,18 @@ pipeline {
           customWorkspace '/tmp/jksdemo'
         }
       }
-      options { retry (3) }
+      options { 
+        retry (3) 
+        skipDefaultCheckout()
+      }
       steps {
         sh 'docker run -d -p 8809:80 --name centos-jksmd zspmilan/centos-jkmd:v1.0 /usr/sbin/init'
+        sh 'docker exec centos-jksmd systemctl start nginx'
       }
     }
     stage('test') {
       agent { node { label 'client' } }
+      options { skipDefaultCheckout() }
       steps {
         sh 'curl http://127.0.0.1:8809'
       }
