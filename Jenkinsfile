@@ -32,6 +32,7 @@ pipeline {
           customWorkspace '/tmp/jksdemo'
         }
       }
+      options { retry (3) }
       steps {
         sh 'docker run -d -p 8809:80 --name centos-jksmd centos-jkmd:v1.0 /usr/sbin/init'
       }
