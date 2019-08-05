@@ -40,8 +40,11 @@ pipeline {
         skipDefaultCheckout()
       }
       steps {
-        sh 'docker run -d -p 8809:80 --name centos-jksmd zspmilan/centos-jkmd:v1.0 /usr/sbin/init'
-        sh 'docker exec centos-jksmd systemctl start nginx'
+        sh '''
+           timestamp=$(date +%Y%m%d%H%M%S)
+           docker run -d -p 8809:80 --name centos-jksmd_${timestamp} zspmilan/centos-jkmd:v1.0 /usr/sbin/init
+           docker exec centos-jksmd_${timestamp} systemctl start nginx
+        '''
       }
     }
     stage('test') {
