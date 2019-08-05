@@ -44,6 +44,7 @@ pipeline {
            timestamp=$(date +%Y%m%d%H%M%S)
            docker run -d -p 8809:80 --name centos-jksmd_${timestamp} zspmilan/centos-jkmd:v1.0 /usr/sbin/init
            docker exec centos-jksmd_${timestamp} systemctl start nginx
+           echo ${timestamp} > timestamp
         '''
       }
     }
@@ -54,8 +55,18 @@ pipeline {
         sh 'curl http://127.0.0.1:8809'
       }
     }
+    stage('post_clear') {
+      sh '''
+         timestamp=$(cat timestamp)
+         docker stop ${timestamp} && docker rm ${timestamp}
+      '''
+    }
   }
   post {
+    always {
+      echo 'Now clear the workspacr!'
+      deleteDir()
+    }
     success {
       echo 'Everything is fine!'
       mail to: 'zspmilan@163.com',
