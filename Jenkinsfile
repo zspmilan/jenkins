@@ -56,10 +56,12 @@ pipeline {
       }
     }
     stage('post_clear') {
-      sh '''
-         timestamp=$(cat timestamp)
-         docker stop ${timestamp} && docker rm ${timestamp}
-      '''
+      steps {
+        sh '''
+           timestamp=$(cat timestamp)
+           docker stop ${timestamp} && docker rm ${timestamp}
+        '''
+      }
     }
   }
   post {
