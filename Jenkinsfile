@@ -58,6 +58,15 @@ pipeline {
   post {
     success {
       echo 'Everything is fine!'
+      mail to: 'zspmilan@163.com',
+      suject: "Update the Pipeline result.",
+      body: "The ${env.JOB_NAME} ${env.BUILD_NUMBER} is successful."
     }
+   failure {
+      echo 'Ops, it failed!'
+      mail to: 'zspmilan@163.com',
+      suject: "Update the Pipeline result.",
+      body: "The ${env.JOB_NAME} ${env.BUILD_NUMBER} is failed!"
+   }
   }
 }
