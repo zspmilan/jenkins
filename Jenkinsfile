@@ -66,23 +66,11 @@ pipeline {
   }
   post {
     always {
-      /*agent none
-      stages {
-        stage('clear-client') {*/
-           node { label 'client' }
-          /*steps {*/
-            echo 'Now clear the workspace!'
-            deleteDir()
-         /* }
-        }
-        stage('clear-master') {*/
-          node { label 'master' }
-         /* steps {*/
-            echo 'Now clear the workspace!'
-            deleteDir()
-         /* }
-        }
-      }*/
+      node { 
+        label 'client' 
+      }
+      echo 'Now clear the workspace!'
+      deleteDir()
     }
     success {
       echo 'Everything is fine!'
