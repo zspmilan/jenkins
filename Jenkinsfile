@@ -2,6 +2,7 @@
 
 pipeline {
   agent none
+  options { timestamps() }
   stages {
     stage('build'){
     agent { 
@@ -62,10 +63,11 @@ pipeline {
           customWorkspace '/tmp/jksdemo'
         }
       }
+      options { skipDefaultCheckout() }
       steps {
         sh '''
            timestamp=$(cat timestamp)
-           docker stop ${timestamp} && docker rm ${timestamp}
+           docker stop centos-jksmd_${timestamp} && docker rm centos-jksmd_${timestamp}
         '''
       }
       post {
