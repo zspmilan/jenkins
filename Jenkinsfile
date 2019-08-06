@@ -69,14 +69,14 @@ pipeline {
       /*agent none
       stages {
         stage('clear-client') {*/
-          agent { node { label 'client' } }
+           node { label 'client' }
           /*steps {*/
             echo 'Now clear the workspace!'
             deleteDir()
          /* }
         }
         stage('clear-master') {*/
-          agent { node { label 'master' } }
+          node { label 'master' }
          /* steps {*/
             echo 'Now clear the workspace!'
             deleteDir()
