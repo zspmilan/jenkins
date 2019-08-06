@@ -56,11 +56,23 @@ pipeline {
       }
     }
     stage('post_clear') {
+      agent {
+        node {
+          label 'client'
+          customWorkspace '/tmp/jksdemo'
+        }
+      }
       steps {
         sh '''
            timestamp=$(cat timestamp)
            docker stop ${timestamp} && docker rm ${timestamp}
         '''
+      }
+      post {
+        always {
+         echo 'Now will clear the workspace!'
+         deleteDir()
+        }
       }
     }
   }
