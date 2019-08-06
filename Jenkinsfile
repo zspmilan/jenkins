@@ -65,11 +65,6 @@ pipeline {
     }
   }
   post {
-    always {
-      node {label 'client'}
-      echo 'Now clear the workspace!'
-      deleteDir()
-    }
     success {
       echo 'Everything is fine!'
       mail to: 'zspmilan@163.com',

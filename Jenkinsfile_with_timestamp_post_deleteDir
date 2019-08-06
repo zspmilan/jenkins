@@ -1,0 +1,74 @@
+#!/usr/bin/groovy
+
+pipeline{
+    agent none
+    options {
+        timestamps()
+        timeout(time:1,unit:'MINUTES')
+    }
+    stages {
+        stage('run') {
+            agent {
+                node {
+                    label 'client'
+                }
+            }
+            steps {
+                sh '''
+                timestamp=$(date +%Y%m%d%H%M%S)
+                echo ${timestamp}>./timestamp
+                '''
+            }
+        }
+        stage('parallels') {
+            parallel {
+                stage('ts') {
+                    agent {node {label 'client'}}
+                    steps {
+                        echo 'see the time stamp'
+                        sh 'sleep 5s'
+                    }
+                }
+                stage('ts2') {
+                    agent {node {label 'client'}}
+                    steps {
+                        echo 'see the time stamp agian!'
+                        sh '''
+                        timesss=$(cat timestamp)
+                        echo ${timesss}
+                        '''   
+                    }
+                }
+            }
+        }
+        stage('ts3') {
+            agent {
+                node {
+                    label 'client'
+                    customWorkspace '/tmp/demo'
+                }
+            }
+            steps {
+                echo 'see the stamp!'
+                sh 'sleep 5s'
+            }
+            post {
+                always {
+                    deleteDir()
+                }
+            }
+        }    
+    }
+    post {
+        success {
+            mail to: '45478401@qq.com',
+            subject: "update the pipeline",
+            body: "The ${env.JOB_NAME} ${env.BUILD_NUMBER} is successful."
+        }
+        failure {
+            mail to: '45478401@qq.com',
+            subject: "update the pipeline",
+            body: "The ${env.JOB_NAME} ${env.BUILD_NUMBER} is failure."
+        }
+    }
+}
