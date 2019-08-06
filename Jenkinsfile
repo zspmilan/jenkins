@@ -66,8 +66,23 @@ pipeline {
   }
   post {
     always {
-      echo 'Now clear the workspacr!'
-      deleteDir()
+      agent none
+      stages {
+        stage('clear-client') {
+          agent { label 'client' }
+          steps {
+            echo 'Now clear the workspace!'
+            deleteDir()
+          }
+        }
+        stage('clear-master') {
+          agent { label 'master' }
+          steps {
+            echo 'Now clear the workspace!'
+            deleteDir()
+          }
+        }
+      }
     }
     success {
       echo 'Everything is fine!'
