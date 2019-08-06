@@ -66,9 +66,7 @@ pipeline {
   }
   post {
     always {
-      node { 
-        label 'client' 
-      }
+      node {label 'client'}
       echo 'Now clear the workspace!'
       deleteDir()
     }
