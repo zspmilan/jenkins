@@ -81,7 +81,7 @@ pipeline {
   post {
     success {
       echo 'Everything is fine!'
-      mail to: 'zspmilan@163.com',
+      mail to: 'zspmilan@163.com 45478401@qq.com',
       subject: "Update the Pipeline result.",
       body: "The ${env.JOB_NAME} ${env.BUILD_NUMBER} is successful."
     }
