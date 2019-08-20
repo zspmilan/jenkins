@@ -12,7 +12,7 @@ pipeline {
       }
     }
       steps {
-        sh 'docker build -t docker.io/zspmilan/centos-jkmd:v3.0 .'
+        sh 'docker build -t docker.io/zspmilan/centos-jkmd:v4.0 .'
       }
     }
     stage('push') {
@@ -26,7 +26,7 @@ pipeline {
         skipDefaultCheckout()
       }
       steps {
-        sh 'docker push docker.io/zspmilan/centos-jkmd:v3.0'
+        sh 'docker push docker.io/zspmilan/centos-jkmd:v4.0'
       }
     }
     stage('run') {
@@ -43,8 +43,8 @@ pipeline {
       steps {
         sh '''
            timestamp=$(date +%Y%m%d%H%M%S)
-           docker run -d -p 8808:80 --name centos-jksmd_${timestamp} zspmilan/centos-jkmd:v3.0 /usr/sbin/init
-           docker exec centos-jksmd_${timestamp} /tmp/inint.sh
+           docker run -d -p 8808:80 --name centos-jksmd_${timestamp} zspmilan/centos-jkmd:v4.0 /usr/sbin/init
+           docker exec centos-jksmd_${timestamp} ~/inint.sh
            echo ${timestamp} > timestamp
         '''
       }
