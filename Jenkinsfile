@@ -43,8 +43,8 @@ pipeline {
       steps {
         sh '''
            timestamp=$(date +%Y%m%d%H%M%S)
-           docker run -d -p 8808:80 --name centos-jksmd_${timestamp} zspmilan/centos-jkmd:v2.0 /tmp/inint.sh
-          /* docker exec centos-jksmd_${timestamp} systemctl start nginx*/
+           docker run -d -p 8808:80 --name centos-jksmd_${timestamp} zspmilan/centos-jkmd:v2.0 /usr/sbin/init
+           docker exec centos-jksmd_${timestamp} /tmp/inint.sh
            echo ${timestamp} > timestamp
         '''
       }
