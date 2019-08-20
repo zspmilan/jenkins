@@ -7,5 +7,5 @@ RUN rpm -qa|grep gcc || yum install -y gcc-c++ && yum install -y pcre pcre-devel
 RUN rpm -ivh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
 #RUN rpm -qa|grep wget ||yum install -y wget && wget -c https://nginx.org/download/nginx-1.10.1.tar.gz && tar -zxvf nginx-1.10.1.tar.gz && cd nginx-1.10.1 && make install
 RUN yum install -y nginx
-RUN chmod u+x /tmp/inint.sh && sh -x /tmp/inint.sh
+RUN chmod u+x /tmp/inint.sh
 EXPOSE 80
