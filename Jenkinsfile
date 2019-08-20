@@ -37,7 +37,7 @@ pipeline {
         }
       }
       options { 
-        retry (3) 
+        retry (5) 
         skipDefaultCheckout()
       }
       steps {
