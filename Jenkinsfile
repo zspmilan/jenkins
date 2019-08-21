@@ -44,7 +44,7 @@ pipeline {
         sh '''
            timestamp=$(date +%Y%m%d%H%M%S)
            docker run -d -p 8808:80 --name centos-jksmd_${timestamp} zspmilan/centos-jkmd:v4.0 /usr/sbin/init
-           docker exec centos-jksmd_${timestamp} ~/inint.sh
+           docker exec centos-jksmd_${timestamp} /srv/inint.sh
            echo ${timestamp} > timestamp
         '''
       }
