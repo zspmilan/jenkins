@@ -81,7 +81,7 @@ pipeline {
       agent {
         node {
           label 'CA'
-          customWorkspace '/tmp/jksdemo'
+          /*customWorkspace '/tmp/jksdemo'*/
         }
       }
       options { skipDefaultCheckout() } 
