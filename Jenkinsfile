@@ -77,6 +77,29 @@ pipeline {
         }
       }
     }
+    stage('deploy') {
+      agent {
+        node {
+          label 'CA'
+          customWorkspace '/tmp/jksdemo'
+        }
+      }
+      options { skipDefaultCheckout() } 
+      steps {
+        sh '''
+           timestamp=$(date +%Y%m%d%H%M%S)
+           docker run -d -p 8808:80 --name centos-jksmd_${timestamp} zspmilan/centos-jkmd:v4.0 /usr/sbin/init
+           docker exec centos-jksmd_${timestamp} /srv/inint.sh
+        ''' 
+      } 
+    }
+    stage('application') {
+      agent { node { label 'master' } } 
+      options { skipDefaultCheckout() }
+      steps {
+        sh 'curl http://100.98.101.26:8808'
+      }
+    }
   }
   post {
     success {
