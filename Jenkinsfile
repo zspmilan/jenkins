@@ -2,7 +2,10 @@
 
 pipeline {
   agent none
-  options { timestamps() }
+  options { 
+    timestamps() 
+    buildDiscarder(logRotator(numToKeepStr:'10'))
+  }
   stages {
     stage('build'){
     agent { 
